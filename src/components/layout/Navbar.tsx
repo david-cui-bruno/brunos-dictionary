@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { logOut } from '../../firebase/auth';
+import logoImage from '../../assets/logo.png';
 
 const Navbar: React.FC = () => {
   const { currentUser, isAuthenticated } = useAuth();
@@ -21,10 +22,7 @@ const Navbar: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <h1 className="text-3xl font-bold" style={{ fontFamily: 'Arial, sans-serif' }}>
-              <span className="text-white">bruno's</span>
-              <span className="block text-yellow-400 -mt-1">Dictionary</span>
-            </h1>
+            <img src={logoImage} alt="Bruno's Dictionary" className="h-10 md:h-12" />
           </Link>
           
           {/* Main Navigation */}
