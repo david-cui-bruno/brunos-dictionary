@@ -1,19 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoImage from '../../assets/logo.png';
 import WordList from '../dictionary/WordList';
 
 const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center pt-24 px-4">
-      {/* Logo */}
-      <img
-        src={logoImage}
-        alt="Bruno's Dictionary"
-        className="h-24 w-auto mb-6"
-        style={{ maxWidth: '90vw', objectFit: 'contain' }}
-      />
-
       {/* Subtitle */}
       <h2 className="font-['Helvetica'] text-[12pt] text-brown mb-6 text-center font-semibold">
         The college slang dictionary for .edu users
