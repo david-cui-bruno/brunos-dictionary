@@ -1,11 +1,11 @@
 import { db } from './config';
 import { 
-  collection, addDoc, getDocs, doc, getDoc, 
+  collection, addDoc, getDocs, doc, 
   query, where, orderBy, updateDoc, increment,
-  serverTimestamp, Timestamp, deleteDoc, limit
+  serverTimestamp, deleteDoc, limit
 } from 'firebase/firestore';
 import { User } from 'firebase/auth';
-import { Word, Definition, Vote } from '../types';
+import { Word, Definition } from '../types';
 
 // Words
 export const addWord = async (currentUser: User, term: string, category?: string, tags?: string[]) => {

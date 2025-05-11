@@ -7,14 +7,9 @@ import type { Word, Definition } from '../../types/index';
 import { useAuth } from '../../context/AuthContext';
 import DefinitionForm from './DefinitionForm';
 
-// Make sure wordId is properly typed
-interface WordParams {
-  wordId: string;
-}
-
 const WordDetail: React.FC = () => {
   // Fix the params typing
-  const { wordId } = useParams() as { wordId: string };
+  const { wordId } = useParams<{ wordId: string }>();
   const { currentUser, isAuthenticated } = useAuth();
   const [word, setWord] = useState<Word | null>(null);
   const [definitions, setDefinitions] = useState<Definition[]>([]);
@@ -88,22 +83,22 @@ const WordDetail: React.FC = () => {
   
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">{word.term}</h1>
+      <div className="mb-8 bg-white p-6 rounded-lg shadow-md">
+        <h1 className="text-4xl font-bold mb-2 text-[#1c2331]">{word.term}</h1>
         
         {word.category && (
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+          <span className="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-700 mr-2">
             {word.category}
           </span>
         )}
         
         {word.tags && word.tags.map(tag => (
-          <span key={tag} className="inline-block bg-blue-100 rounded-full px-3 py-1 text-sm font-semibold text-blue-700 mr-2">
+          <span key={tag} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
             {tag}
           </span>
         ))}
         
-        <div className="text-sm text-gray-500 mt-2">
+        <div className="text-sm text-gray-500 mt-4">
           Added by {word.authorName} on {new Date(word.createdAt.toDate()).toLocaleDateString()}
         </div>
       </div>

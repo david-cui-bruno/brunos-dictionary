@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { collection, query, where, getDocs, orderBy, startAt, endAt } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { collection, query, getDocs, orderBy, startAt, endAt } from 'firebase/firestore';
 import { db } from '../../firebase/config';
-import { Word } from '../../types';
+import type { Word } from '../../types/index';
 
 const Search: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialQuery = searchParams.get('q') || '';
+  
+  const [searchTerm, setSearchTerm] = useState(initialQuery);
   const [results, setResults] = useState<Word[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [hasSearched, setHasSearched] = useState(false);
+  const [hasSearched, setHasSearched] = useState(!!initialQuery);
   
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!searchTerm.trim()) return;
-    
+  useEffect(() => {
+    if (initialQuery) {
+      performSearch(initialQuery);
+    }
+  }, [initialQuery]);
+  
+  const performSearch = async (term: string) => {
     setLoading(true);
     setError('');
-    setHasSearched(true);
     
     try {
       const wordsRef = collection(db, 'words');
       // Basic prefix search
-      const searchTermLower = searchTerm.toLowerCase();
+      const searchTermLower = term.toLowerCase();
       const q = query(
         wordsRef,
         orderBy('term'),
@@ -37,10 +42,19 @@ const Search: React.FC = () => {
       })) as Word[];
       
       setResults(searchResults);
+      setHasSearched(true);
     } catch (error: any) {
       setError(error.message);
     } finally {
       setLoading(false);
+    }
+  };
+  
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      setSearchParams({ q: searchTerm });
+      performSearch(searchTerm);
     }
   };
   
@@ -68,7 +82,9 @@ const Search: React.FC = () => {
       </form>
       
       {loading && (
-        <div className="text-center py-4">Searching...</div>
+        <div className="flex justify-center py-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-500 border-t-transparent"></div>
+        </div>
       )}
       
       {error && (

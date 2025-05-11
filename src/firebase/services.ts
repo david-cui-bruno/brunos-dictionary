@@ -1,12 +1,12 @@
 import { db } from './config';
 import { 
   collection, addDoc, getDocs, getDoc, doc, 
-  query, where, orderBy, updateDoc, deleteDoc,
+  query, orderBy, updateDoc,
   increment, serverTimestamp
 } from 'firebase/firestore';
 
 // Example functions for your dictionary
-export const addWord = async (wordData) => {
+export const addWord = async (wordData: any) => {
   return await addDoc(collection(db, 'words'), {
     ...wordData,
     createdAt: serverTimestamp(),
@@ -24,7 +24,7 @@ export const getWords = async () => {
   }));
 };
 
-export const getWordById = async (id) => {
+export const getWordById = async (id: string) => {
   const docRef = doc(db, 'words', id);
   const docSnap = await getDoc(docRef);
   
@@ -35,7 +35,7 @@ export const getWordById = async (id) => {
   }
 };
 
-export const upvoteWord = async (id) => {
+export const upvoteWord = async (id: string) => {
   const wordRef = doc(db, 'words', id);
   return await updateDoc(wordRef, {
     votes: increment(1)

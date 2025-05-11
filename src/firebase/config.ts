@@ -5,13 +5,13 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "AIzaSyBZiIbLqg--l3IcvauRjK18-vX9wxn9S3E",
   authDomain: "bruno-dictionary.firebaseapp.com",
   projectId: "bruno-dictionary",
   storageBucket: "bruno-dictionary.firebasestorage.app",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
+  messagingSenderId: "461887648643",
+  appId: "1:461887648643:web:b103f01c5c5d6c56593cb6",
+  measurementId: "G-S4HQZZGXNQ"
 };
 
 // Initialize Firebase
