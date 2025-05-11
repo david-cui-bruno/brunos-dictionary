@@ -1,37 +1,49 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logoImage from '../../assets/logo.png';
 import WordList from '../dictionary/WordList';
 
 const HomePage: React.FC = () => {
   return (
-    <div>
-      <div className="bg-[#1c2331] text-white py-12">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-2">
-              <span className="text-white">Bruno's</span>
-              <span className="text-yellow-400"> Dictionary</span>
-            </h1>
-            <p className="text-xl mb-8 text-gray-300">The college slang dictionary for .edu users</p>
-            
-            <div className="flex flex-wrap gap-4">
-              <Link 
-                to="/search" 
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-md"
-              >
-                Browse Dictionary
-              </Link>
-              <Link 
-                to="/submit" 
-                className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-md"
-              >
-                Add a Word
-              </Link>
-            </div>
-          </div>
-        </div>
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center pt-24 px-4">
+      {/* Logo */}
+      <img
+        src={logoImage}
+        alt="Bruno's Dictionary"
+        className="h-24 w-auto mb-6"
+        style={{ maxWidth: '90vw', objectFit: 'contain' }}
+      />
+
+      {/* Subtitle */}
+      <h2 className="font-['Helvetica'] text-[12pt] text-brown mb-6 text-center font-semibold">
+        The college slang dictionary for .edu users
+      </h2>
+
+      {/* Action Buttons */}
+      <div className="flex flex-col md:flex-row gap-4 mt-2">
+        <Link
+          to="/search"
+          className="bg-brown text-white font-['Helvetica'] text-[12pt] font-bold py-3 px-8 rounded-full shadow hover:bg-brown-dark transition"
+        >
+          Browse Dictionary
+        </Link>
+        <Link
+          to="/submit"
+          className="bg-brown-light text-brown-dark font-['Helvetica'] text-[12pt] font-bold py-3 px-8 rounded-full shadow hover:bg-brown transition"
+        >
+          Add a Word
+        </Link>
       </div>
-      
+
+      {/* About Section */}
+      <div className="max-w-2xl mt-12 bg-brown-light bg-opacity-80 rounded-xl p-6 text-brown-dark text-center shadow font-['Helvetica'] text-[12pt]">
+        <h3 className="text-lg font-semibold mb-2">What is Bruno's Dictionary?</h3>
+        <p>
+          Bruno's Dictionary is a community-driven collection of college slang, academic terms, and campus lingo.
+          All content is contributed by .edu email holders, ensuring authentic campus culture.
+        </p>
+      </div>
+
       <div className="page-container py-12">
         <h2 className="section-title">Latest Dictionary Entries</h2>
         <WordList />
