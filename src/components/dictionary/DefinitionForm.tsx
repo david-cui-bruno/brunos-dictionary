@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { addDefinition } from '../../firebase/dictionary';
-import { Definition } from '../../types/index';
+import type { Definition } from '../../types/index';
 
 interface DefinitionFormProps {
   wordId: string;

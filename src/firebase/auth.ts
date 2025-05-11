@@ -5,7 +5,7 @@ import {
   signOut,
   updateProfile,
   onAuthStateChanged,
-  User
+  type User
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { doc, getDoc, query, collection, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/config';
-import { Word, Definition } from '../../types';
+import type { Word, Definition } from '../../types/index';
 import { Link } from 'react-router-dom';
 
 const Profile: React.FC = () => {

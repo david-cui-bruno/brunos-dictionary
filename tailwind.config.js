@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        urbandark: {
-          800: '#1c2331',
-          900: '#0a0e17',
+        brown: {
+          DEFAULT: '#8B5C2A', // or pick your preferred brown
+          dark: '#6B3F16',
+          light: '#B07D4B',
         },
-        urbanyellow: '#ffff64',
-      }
+      },
     },
   },
   plugins: [],
