@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* About Section */}
-      <div className="max-w-2xl mt-12 bg-brown-light bg-opacity-80 rounded-xl p-6 text-brown-dark text-center shadow font-['Helvetica'] text-[12pt]">
+      <div className="w-full mt-12 bg-brown-light bg-opacity-80 rounded-xl p-6 text-brown-dark text-center shadow font-['Helvetica'] text-[12pt]">
         <h3 className="text-lg font-semibold mb-2">What is Bruno's Dictionary?</h3>
         <p>
           Bruno's Dictionary is a community-driven collection of college slang, academic terms, and campus lingo.
@@ -52,7 +52,7 @@ const HomePage: React.FC = () => {
       <div className="bg-indigo-50 py-12">
         <div className="page-container">
           <h2 className="section-title">About Bruno's Dictionary</h2>
-          <div className="prose lg:prose-xl max-w-3xl mx-auto">
+          <div className="prose lg:prose-xl w-full">
             <p>
               Bruno's Dictionary is a community-driven collection of college slang, academic terms, and campus lingo. 
               All content is contributed by .edu email holders, ensuring authentic campus culture.

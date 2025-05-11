@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   };
   
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="w-full p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Log In</h2>
       
       {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">{error}</div>}

@@ -32,7 +32,7 @@ const SignUp: React.FC = () => {
   
   if (success) {
     return (
-      <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+      <div className="w-full p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4 text-green-600">Account Created!</h2>
         <p>You can now log in with your credentials.</p>
       </div>
@@ -40,7 +40,7 @@ const SignUp: React.FC = () => {
   }
   
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="w-full p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Create Account</h2>
       <p className="mb-4 text-gray-600">Only .edu email addresses can register</p>
       

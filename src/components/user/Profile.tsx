@@ -59,7 +59,7 @@ const Profile: React.FC = () => {
   
   if (!isAuthenticated) {
     return (
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="w-full p-6">
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">Profile</h2>
           <p>Please log in to view your profile</p>
@@ -77,12 +77,12 @@ const Profile: React.FC = () => {
   }
   
   if (loading) {
-    return <div className="max-w-4xl mx-auto p-6">Loading profile...</div>;
+    return <div className="w-full p-6">Loading profile...</div>;
   }
   
   if (error) {
     return (
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="w-full p-6">
         <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
           Error: {error}
         </div>
@@ -91,7 +91,7 @@ const Profile: React.FC = () => {
   }
   
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="w-full p-6">
       <h2 className="text-3xl font-bold mb-6">Your Profile</h2>
       
       <div className="bg-white shadow rounded-lg p-6 mb-8">

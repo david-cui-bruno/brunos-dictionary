@@ -5,7 +5,6 @@ import { logOut } from '../../firebase/auth';
 import logoImage from '../../assets/logo.png';
 
 const navLinks = [
-  { to: '/', label: 'Home' },
   { to: '/search', label: 'Browse' },
   { to: '/submit', label: 'Add Word' },
 ];
@@ -26,16 +25,18 @@ const Navbar: React.FC = () => {
     <header className="sticky top-0 z-50 w-full bg-brown text-white shadow-md">
       {/* Top Row: Logo and Nav Links */}
       <div className="flex flex-col items-center w-full">
-        <div className="flex flex-row items-center justify-center w-full py-4 space-x-12">
-          {/* Logo */}
-          <img
-            src={logoImage}
-            alt="Bruno's Dictionary"
-            className="h-12 w-auto"
-            style={{ minWidth: 48 }}
-          />
+        <div className="flex flex-row items-center justify-start w-full py-4 pl-30 space-x-12">
+          {/* Logo as Home Link */}
+          <Link to="/">
+            <img
+              src={logoImage}
+              alt="Bruno's Dictionary"
+              className="h-12 w-auto"
+              style={{ minWidth: 48 }}
+            />
+          </Link>
           {/* Nav Links */}
-          <nav className="flex flex-row items-center justify-center flex-1 space-x-12">
+          <nav className="flex flex-row items-center space-x-12">
             {navLinks.map(link => (
               <Link
                 key={link.to}

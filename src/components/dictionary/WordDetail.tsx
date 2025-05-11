@@ -64,12 +64,12 @@ const WordDetail: React.FC = () => {
   };
   
   if (loading) {
-    return <div className="max-w-4xl mx-auto p-6">Loading...</div>;
+    return <div className="w-full p-6">Loading...</div>;
   }
   
   if (error) {
     return (
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="w-full p-6">
         <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
           Error: {error}
         </div>
@@ -78,11 +78,11 @@ const WordDetail: React.FC = () => {
   }
   
   if (!word) {
-    return <div className="max-w-4xl mx-auto p-6">Word not found</div>;
+    return <div className="w-full p-6">Word not found</div>;
   }
   
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="w-full p-6">
       <div className="mb-8 bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-4xl font-bold mb-2 text-[#1c2331]">{word.term}</h1>
         
