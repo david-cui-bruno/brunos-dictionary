@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import WordList from '../dictionary/WordList';
+import MostPopularEntries from '../dictionary/MostPopularEntries.tsx';
 
 const HomePage: React.FC = () => {
   return (
@@ -26,42 +26,9 @@ const HomePage: React.FC = () => {
         </Link>
       </div>
 
-      {/* About Section */}
-      <div className="w-full mt-12 bg-brown-light bg-opacity-80 rounded-xl p-6 text-brown-dark text-center shadow font-['Helvetica'] text-[12pt]">
-        <h3 className="text-lg font-semibold mb-2">What is Bruno's Dictionary?</h3>
-        <p>
-          Bruno's Dictionary is a community-driven collection of college slang, academic terms, and campus lingo.
-          All content is contributed by .edu email holders, ensuring authentic campus culture.
-        </p>
-      </div>
-
       <div className="page-container py-12">
-        <h2 className="section-title">Latest Dictionary Entries</h2>
-        <WordList />
-        
-        <div className="text-center mt-12">
-          <Link 
-            to="/search" 
-            className="btn-primary inline-block"
-          >
-            View More Words
-          </Link>
-        </div>
-      </div>
-      
-      <div className="bg-indigo-50 py-12">
-        <div className="page-container">
-          <h2 className="section-title">About Bruno's Dictionary</h2>
-          <div className="prose lg:prose-xl w-full">
-            <p>
-              Bruno's Dictionary is a community-driven collection of college slang, academic terms, and campus lingo. 
-              All content is contributed by .edu email holders, ensuring authentic campus culture.
-            </p>
-            <p>
-              Join our growing community of contributors and help document the evolving language of university life!
-            </p>
-          </div>
-        </div>
+        <h2 className="section-title">Most Popular Dictionary Entries</h2>
+        <MostPopularEntries />
       </div>
     </div>
   );
