@@ -6,6 +6,7 @@ import Login from './components/auth/Login';
 import WordDetail from './components/dictionary/WordDetail';
 import Search from './components/dictionary/Search';
 import Profile from './components/user/Profile';
+import WordForm from './components/dictionary/WordForm';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/word/:wordId" element={<WordDetail />} />
             <Route path="/search" element={<Search />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/submit" element={<WordForm />} />
           </Routes>
         </main>
         <footer className="bg-gray-800 text-white py-12">

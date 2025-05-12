@@ -2,31 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { collection, query, getDocs, orderBy, startAt, endAt } from 'firebase/firestore';
 import { db } from '../../firebase/config';
-import type { Word } from '../../types/index';
+import { getDefinitionsForWord } from '../../firebase/dictionary';
+import type { Word, Definition } from '../../types/index';
+
+interface DefinitionWithWord extends Definition {
+  wordTerm: string;
+}
 
 const Search: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
-  
-  const [searchTerm, setSearchTerm] = useState(initialQuery);
-  const [results, setResults] = useState<Word[]>([]);
+
+  const [definitions, setDefinitions] = useState<DefinitionWithWord[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [hasSearched, setHasSearched] = useState(!!initialQuery);
-  
+
   useEffect(() => {
     if (initialQuery) {
       performSearch(initialQuery);
     }
+    // eslint-disable-next-line
   }, [initialQuery]);
-  
+
   const performSearch = async (term: string) => {
     setLoading(true);
     setError('');
-    
+    setDefinitions([]);
     try {
       const wordsRef = collection(db, 'words');
-      // Basic prefix search
       const searchTermLower = term.toLowerCase();
       const q = query(
         wordsRef,
@@ -34,98 +37,72 @@ const Search: React.FC = () => {
         startAt(searchTermLower),
         endAt(searchTermLower + '\uf8ff')
       );
-      
       const snapshot = await getDocs(q);
-      const searchResults = snapshot.docs.map(doc => ({
+      const words = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       })) as Word[];
-      
-      setResults(searchResults);
-      setHasSearched(true);
+
+      // Fetch all definitions for all found words
+      let allDefs: DefinitionWithWord[] = [];
+      for (const word of words) {
+        const defs = await getDefinitionsForWord(word.id!);
+        // Attach the word's term to each definition
+        allDefs = allDefs.concat(defs.map(def => ({
+          ...def,
+          wordTerm: word.term
+        })));
+      }
+
+      // Sort by score (upvotes)
+      allDefs.sort((a, b) => (b.score || 0) - (a.score || 0));
+      setDefinitions(allDefs);
     } catch (error: any) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
   };
-  
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      setSearchParams({ q: searchTerm });
-      performSearch(searchTerm);
-    }
-  };
-  
+
   return (
     <div className="w-full p-6">
-      <h2 className="text-3xl font-bold mb-6">Search Dictionary</h2>
-      
-      <form onSubmit={handleSearch} className="mb-8">
-        <div className="flex">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search for a word or phrase..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-r-md"
-          >
-            Search
-          </button>
-        </div>
-      </form>
-      
       {loading && (
         <div className="flex justify-center py-4">
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-500 border-t-transparent"></div>
         </div>
       )}
-      
+
       {error && (
         <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
           {error}
         </div>
       )}
-      
-      {hasSearched && !loading && !error && (
-        <div>
-          <h3 className="text-xl font-bold mb-4">
-            {results.length === 0 
-              ? 'No results found' 
-              : `Found ${results.length} result${results.length === 1 ? '' : 's'}`}
-          </h3>
-          
-          {results.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {results.map(word => (
-                <Link 
-                  key={word.id} 
-                  to={`/word/${word.id}`}
-                  className="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50"
-                >
-                  <h4 className="text-lg font-bold text-blue-600">{word.term}</h4>
-                  {word.category && (
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2">
-                      {word.category}
-                    </span>
-                  )}
-                  <div className="text-sm text-gray-500 mt-2">
-                    Added by {word.authorName} on {new Date(word.createdAt.toDate()).toLocaleDateString()}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-          
-          {results.length === 0 && (
+
+      {/* Only show the cards */}
+      <div>
+        {definitions.length > 0 ? (
+          <div className="space-y-6">
+            {definitions.map(def => (
+              <div key={def.id} className="bg-white rounded-lg shadow-md p-6">
+                <h4 className="text-2xl font-bold text-blue-600 mb-2">{def.wordTerm}</h4>
+                <p className="text-lg">{def.text}</p>
+                <p className="italic text-gray-600 mt-2">{def.example}</p>
+                <div className="text-sm text-gray-500 mt-2">
+                  Defined by {def.authorName} on {def.createdAt && typeof def.createdAt.toDate === 'function'
+                    ? new Date(def.createdAt.toDate()).toLocaleDateString()
+                    : ''}
+                </div>
+                <div className="flex items-center mt-2 space-x-2">
+                  <span className="border border-black rounded-full px-3 py-1">▲ {def.upvotes}</span>
+                  <span className="border border-black rounded-full px-3 py-1">▼ {def.downvotes}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          !loading && !error && (
             <div className="text-center py-8">
-              <p className="mb-4">Don't see what you're looking for?</p>
+              <p className="mb-4">No definitions found.</p>
               <Link 
                 to="/submit" 
                 className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-md"
@@ -133,9 +110,9 @@ const Search: React.FC = () => {
                 Add It to the Dictionary
               </Link>
             </div>
-          )}
-        </div>
-      )}
+          )
+        )}
+      </div>
     </div>
   );
 };

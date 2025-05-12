@@ -63,7 +63,7 @@ const DefinitionForm: React.FC<DefinitionFormProps> = ({ wordId, onDefinitionAdd
         </label>
         <textarea
           id="definition"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md h-24"
+          className="w-full px-3 py-2 bg-white border border-black text-black rounded-md h-24"
           value={text}
           onChange={(e) => setText(e.target.value)}
           required
@@ -76,7 +76,7 @@ const DefinitionForm: React.FC<DefinitionFormProps> = ({ wordId, onDefinitionAdd
         </label>
         <textarea
           id="example"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md h-20"
+          className="w-full px-3 py-2 bg-white border border-black text-black rounded-md h-20"
           value={example}
           onChange={(e) => setExample(e.target.value)}
           required

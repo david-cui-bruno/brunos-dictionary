@@ -83,7 +83,7 @@ const WordForm: React.FC = () => {
           <input
             id="term"
             type="text"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 bg-white border border-black text-black rounded-md"
             value={term}
             onChange={(e) => setTerm(e.target.value)}
             required
@@ -96,7 +96,7 @@ const WordForm: React.FC = () => {
           </label>
           <textarea
             id="definition"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md h-24"
+            className="w-full px-3 py-2 bg-white border border-black text-black rounded-md h-24"
             value={definition}
             onChange={(e) => setDefinition(e.target.value)}
             required
@@ -109,7 +109,7 @@ const WordForm: React.FC = () => {
           </label>
           <textarea
             id="example"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md h-20"
+            className="w-full px-3 py-2 bg-white border border-black text-black rounded-md h-20"
             value={example}
             onChange={(e) => setExample(e.target.value)}
             required
@@ -123,7 +123,7 @@ const WordForm: React.FC = () => {
           <input
             id="category"
             type="text"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 bg-white border border-black text-black rounded-md"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             placeholder="Slang, Academic, etc."
@@ -137,7 +137,7 @@ const WordForm: React.FC = () => {
           <input
             id="tags"
             type="text"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 bg-white border border-black text-black rounded-md"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
             placeholder="college, funny, brown"

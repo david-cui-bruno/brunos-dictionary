@@ -5,7 +5,6 @@ import { logOut } from '../../firebase/auth';
 import logoImage from '../../assets/logo.png';
 
 const navLinks = [
-  { to: '/search', label: 'Browse' },
   { to: '/submit', label: 'Add Word' },
 ];
 
@@ -25,7 +24,7 @@ const Navbar: React.FC = () => {
     <header className="sticky top-0 z-50 w-full bg-brown text-white shadow-md">
       {/* Top Row: Logo and Nav Links */}
       <div className="flex flex-col items-center w-full">
-        <div className="flex flex-row items-center justify-start w-full py-4 pl-30 space-x-12">
+        <div className="flex flex-row items-center justify-start w-full py-4 pl-40 space-x-12">
           {/* Logo as Home Link */}
           <Link to="/">
             <img
@@ -83,7 +82,7 @@ const Navbar: React.FC = () => {
         <div className="w-full flex justify-center pb-4">
           <form
             onSubmit={handleSearch}
-            className="w-[60%] flex"
+            className="w-[900px] flex"
           >
             <input
               type="text"
