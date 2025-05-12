@@ -9,12 +9,20 @@ interface VoteBoxProps {
 }
 
 const VoteBox: React.FC<VoteBoxProps> = ({ score, userVote, onUpvote, onDownvote, disabled }) => (
-  <div className="flex items-center border border-black rounded-full bg-white">
+  <div
+    className={`flex items-center border border-black rounded-full transition-colors
+      ${
+        userVote === 1
+          ? 'bg-green-200'
+          : userVote === -1
+          ? 'bg-red-200'
+          : 'bg-white'
+      }`}
+  >
     <button
       onClick={onUpvote}
       disabled={disabled || userVote === 1}
-      className={`px-3 py-1 rounded-l-full focus:outline-none transition-colors
-        ${userVote === 1 ? 'bg-green-200 text-green-600' : 'hover:bg-green-100 text-green-600'}`}
+      className={`px-3 py-1 rounded-l-full focus:outline-none transition-colors bg-white text-green-600`}
       aria-label="Upvote"
     >
       ▲
@@ -23,8 +31,7 @@ const VoteBox: React.FC<VoteBoxProps> = ({ score, userVote, onUpvote, onDownvote
     <button
       onClick={onDownvote}
       disabled={disabled || userVote === -1}
-      className={`px-3 py-1 rounded-r-full focus:outline-none transition-colors
-        ${userVote === -1 ? 'bg-red-200 text-red-600' : 'hover:bg-red-100 text-red-600'}`}
+      className={`px-3 py-1 rounded-r-full focus:outline-none transition-colors bg-white text-red-600`}
       aria-label="Downvote"
     >
       ▼

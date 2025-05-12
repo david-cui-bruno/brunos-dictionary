@@ -80,7 +80,8 @@ const MostPopularEntries: React.FC = () => {
     // eslint-disable-next-line
   }, [isAuthenticated, currentUser]);
 
-  const handleVote = async (definitionId: string, value: 1 | -1) => {
+  // Optimistic voting
+  const handleVote = (definitionId: string, value: 1 | -1) => {
     if (!isAuthenticated || !currentUser) {
       alert('You must be logged in to vote');
       return;
@@ -89,9 +90,8 @@ const MostPopularEntries: React.FC = () => {
       // Already voted this way, do nothing
       return;
     }
-    await voteOnDefinition(currentUser, definitionId, value);
 
-    // Optimistically update UI
+    // Optimistically update UI immediately
     setUserVotes(votes => ({ ...votes, [definitionId]: value }));
     setDefinitions(defs =>
       defs.map(def =>
@@ -109,10 +109,12 @@ const MostPopularEntries: React.FC = () => {
           : def
       )
     );
-    // Immediately re-sort, triggering the animation
     setDefinitions(defs =>
       [...defs].sort((a, b) => (b.score || 0) - (a.score || 0))
     );
+
+    // Send the vote to the server in the background
+    voteOnDefinition(currentUser, definitionId, value);
   };
 
   if (loading) {
@@ -129,7 +131,7 @@ const MostPopularEntries: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            transition={{ type: "spring", stiffness: 200, damping: 30, duration: 0.5 }}
             className="bg-white rounded-lg shadow-md p-6"
           >
             <h4 className="text-2xl font-bold text-blue-600 mb-2">
